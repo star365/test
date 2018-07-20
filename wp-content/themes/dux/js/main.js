@@ -487,7 +487,10 @@ $('.search-show').bind('click', function(){
  * ====================================================
 */
 
-jsui.bd.append( $('.site-navbar').clone().attr('class', 'm-navbar') )
+// jsui.bd.append( $('.site-navbar').clone().attr('class', 'm-navbar') )
+
+// $('.m-navbar').append('<li id="signin-loader" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="javascript:;" class="signin-loader"><i class="fa fa-home"></i>登录</a></li>')
+// $('.m-navbar').append('<li id="signup-loader" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="javascript:;" class="signup-loader"><i class="fa fa-home"></i>注册</a></li>')
 
 $('.m-navbar li.menu-item-has-children').each(function(){
     $(this).append('<i class="fa fa-angle-down faa"></i>')
@@ -512,6 +515,10 @@ $('.m-mask').on('click', function(){
     jsui.bd.removeClass('m-nav-show')
 })
 
+$('#signin-loader').on('click', function(){
+    $('.m-mask').hide()
+    jsui.bd.removeClass('m-nav-show')
+})
 
 
 

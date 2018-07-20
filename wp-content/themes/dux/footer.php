@@ -85,5 +85,25 @@ window.jsui={
 };
 </script>
 <?php wp_footer(); ?>
+
+<ul class="m-navbar">
+<?php if( is_user_logged_in() ): global $current_user; ?>
+	<?php _moloader('mo_get_user_page', false) ?>
+	<li id="signup-loader" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="<?php echo mo_get_user_page() ?>" style="text-align: center;"><?php echo _get_the_avatar($user_id=$current_user->ID, $user_email=$current_user->user_email, true); ?>
+		<p style="margin-top: 8px;"><?php echo $current_user->display_name ?></p></a>
+	</li>
+<?php elseif( _hui('user_page_s') ): ?>
+	<li id="signin-loader" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="javascript:;" class="signin-loader"><img src="https://secure.gravatar.com/avatar/" class="avatar avatar-100" height="50" width="50">&nbsp; &nbsp;登录 / 注册</a></li>
+<?php endif; ?>
+
+<?php _the_menu('nav') ?>
+<?php if( !is_search() && ((_hui('pc_search')&&!wp_is_mobile()) || (_hui('m_search')&&wp_is_mobile())) ){ ?>
+	<li class="navto-search"><a href="javascript:;" class="search-show active"><i class="fa fa-search"></i></a></li>
+<?php } ?>
+
+<?php if( is_super_admin() ){ ?>
+	<li id="signin-loader" class="menu-item menu-item-type-custom menu-item-object-custom"><a target="_blank" href="<?php echo site_url('/wp-admin/') ?>"><i class="fa fa-home"></i>后台管理</a></li>
+<?php } ?>
+</ul>
 </body>
 </html>
