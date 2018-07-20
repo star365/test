@@ -72,34 +72,34 @@ switch ($ui['action']) {
             exit;
         }
 
-        if( !preg_match('/^[a-z\d_]{3,20}$/i', $ui['name']) ) {  
-            print_r(json_encode(array('error'=>1, 'msg'=>'昵称是以字母数字下划线组合的3-20位字符')));  
+        if( !preg_match('/^[a-z\d_]{5,20}$/i', $ui['username']) ) {  
+            print_r(json_encode(array('error'=>1, 'msg'=>'昵称是以字母数字下划线组合的5-20位字符')));  
             exit();  
-        } 
+        }
+
+        if( is_disable_username($ui['username']) ){
+            print_r(json_encode(array('error'=>1, 'msg'=>'昵称含保留或非法字符，换一个再试')));  
+            exit();
+        }
 
         if ( !filter_var($ui['email'], FILTER_VALIDATE_EMAIL) ){ 
             print_r(json_encode(array('error'=>1, 'msg'=>'邮箱格式错误')));  
             exit();  
         }
 
-        /*if( sstrlen($ui['password'])<6 ) {  
+        if( sstrlen($ui['password'])<6 ) {  
             print_r(json_encode(array('error'=>1, 'msg'=>'密码太短')));  
             exit();
-        }*/
+        }
 
-        /*if( is_disable_username($ui['name']) ){
-            print_r(json_encode(array('error'=>1, 'msg'=>'昵称含保留或非法字符，换一个再试')));  
-            exit();
-        }*/
-
-        /*if( $ui['password'] !== $ui['password2'] ) {  
+        if( $ui['password'] !== $ui['password2'] ) {  
             print_r(json_encode(array('error'=>1, 'msg'=>'两次密码输入不一致')));  
             exit();
-        }*/
+        }
   
-        $random_password = wp_generate_password( 12, false );  
+        // $random_password = wp_generate_password( 12, false );  
         // $uname = 'u'.get_millisecond().rand(1000,9999);
-        $status = wp_create_user( $ui['name'], $random_password , $ui['email'] );  
+        $status = wp_create_user( $ui['username'], $ui['password'] , $ui['email'] );  
 
         if ( is_wp_error($status) ){
             $err = $status->errors;
@@ -115,15 +115,15 @@ switch ($ui['action']) {
             exit();
         }
 
-        /*if( $status ){
-            // update_user_meta($status, 'nickname', $ui['name']);
+        if( $status ){
+            // update_user_meta($status, 'nickname', $ui['username']);
             wp_update_user(array(
                 'ID' => $status,
-                'display_name' => $ui['name']
+                'display_name' => $ui['username']
             ));
 
             $login_data = array(
-                'user_login' => $ui['name'],
+                'user_login' => $ui['username'],
                 'user_password' => $ui['password'],
                 'remember' => true
             ); 
@@ -134,23 +134,23 @@ switch ($ui['action']) {
 
             print_r(json_encode(array('error'=>0, 'goto'=>mo_get_user_page())));  
         }
-        exit();*/
+        exit();
 
-        $from = get_option('admin_email');  
-        $headers = 'From: '.$from . "\r\n";  
-        $subject = '您已成功注册成为'.get_bloginfo('name').'用户';  
-        $msg = '用户名：'.$ui['name']."\r\n".'密码：'.$random_password."\r\n".'网址：'.get_bloginfo('url');
+        // $from = get_option('admin_email');  
+        // $headers = 'From: '.$from . "\r\n";  
+        // $subject = '您已成功注册成为'.get_bloginfo('username').'用户';  
+        // $msg = '用户名：'.$ui['username']."\r\n".'密码：'.$random_password."\r\n".'网址：'.get_bloginfo('url');
 
         /*print_r($subject);
         print_r($msg);
         die;*/
-        if( wp_mail( $ui['email'], $subject, $msg, $headers ) ){
-            print_r(json_encode(array('error'=>0, 'msg'=>'密码已发送到您的邮箱，请前去查收')));  
-        }else{
-            print_r(json_encode(array('error'=>1, 'msg'=>'密码邮件发送失败，请联系网站管理员'))); 
-        }
+        // if( wp_mail( $ui['email'], $subject, $msg, $headers ) ){
+        //     print_r(json_encode(array('error'=>0, 'msg'=>'密码已发送到您的邮箱，请前去查收')));  
+        // }else{
+        //     print_r(json_encode(array('error'=>1, 'msg'=>'密码邮件发送失败，请联系网站管理员'))); 
+        // }
 
-        exit();
+        // exit();
         
         break;
 

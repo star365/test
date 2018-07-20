@@ -11,12 +11,12 @@ return {
 			        <form id="sign-in">  \
 			            <h3><small class="signup-loader">切换注册</small>登录</h3>\
 			            <h6>\
-			                <label for="inputEmail">用户名或邮箱</label>\
-			                <input type="text" name="username" class="form-control" id="inputEmail" placeholder="用户名或邮箱">\
+			                <label for="inputEmail_in">用户名或邮箱</label>\
+			                <input type="text" name="username" class="form-control" id="inputEmail_in" placeholder="用户名或邮箱">\
 			            </h6>\
 			            <h6>\
-			                <label for="inputPassword">密码</label>\
-			                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="登录密码">\
+			                <label for="inputPassword_in">密码</label>\
+			                <input type="password" name="password" class="form-control" id="inputPassword_in" placeholder="登录密码">\
 			            </h6>\
 			            <div class="sign-submit">\
 			                <input type="button" class="btn btn-primary signsubmit-loader" name="submit" value="登录">  \
@@ -27,12 +27,20 @@ return {
 			        <form id="sign-up"> \
 			            <h3><small class="signin-loader">切换登录</small>注册</h3>\
 			            <h6>\
-			                <label for="inputName">昵称</label>\
-			                <input type="text" name="name" class="form-control" id="inputName" placeholder="设置昵称">\
+			                <label for="inputUsername">用户名</label>\
+			                <input type="text" name="username" class="form-control" id="inputUsername" placeholder="设置用户名">\
 			            </h6>\
 			            <h6>\
 			                <label for="inputEmail">邮箱</label>\
 			                <input type="email" name="email" class="form-control" id="inputEmail" placeholder="邮箱">\
+			            </h6>\
+			            <h6>\
+			                <label for="inputPassword">密码</label>\
+			                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="密码">\
+			            </h6>\
+			            <h6>\
+			                <label for="inputPassword2">确认密码</label>\
+			                <input type="password" name="password2" class="form-control" id="inputPassword2" placeholder="确认密码">\
 			            </h6>\
 			            <div class="sign-submit">\
 			                <input type="button" class="btn btn-primary btn-block signsubmit-loader" name="submit" value="快速注册">  \
@@ -99,16 +107,26 @@ return {
             }
 
             if( isreg ){
+                if( !/^[a-z\d_]{5,20}$/.test(inputs.username) ){
+                    logtips('用户名是以字母数字下划线组合的5-20位字符')
+                    return
+                }
+
             	if( !is_mail(inputs.email) ){
 	                logtips('邮箱格式错误')
 	                return
 	            }
 
-                if( !/^[a-z\d_]{3,20}$/.test(inputs.name) ){
-                    logtips('昵称是以字母数字下划线组合的3-20位字符')
+            	if( inputs.password.length < 6 ){
+	                logtips('密码太短，至少6位')
+	                return
+	            }
+            }else{
+            	if( inputs.username.length == 0 ){
+                    logtips('用户名不能为空')
                     return
                 }
-            }else{
+
             	if( inputs.password.length < 6 ){
 	                logtips('密码太短，至少6位')
 	                return

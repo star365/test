@@ -519,8 +519,8 @@ return {
 		                return
 		            }
 
-	                if( !/.{2,20}$/.test(inputs.nickname) ){
-	                    tips('昵称限制在2-20字内')
+	                if( !/.{2,12}$/.test(inputs.nickname) ){
+	                    tips('昵称限制在2-12字内')
 	                    return
 	                }
 

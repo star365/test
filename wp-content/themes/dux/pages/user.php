@@ -97,7 +97,7 @@ get_header();
 <script id="temp-info" type="text/x-jsrender">
 	<form>
 	  	<ul class="user-meta">
-	  		<li><label>入门时间</label>
+	  		<li><label>入链时间</label>
 				{{>regtime}}
 	  		</li>
 	  		<li><label>用户名</label>
