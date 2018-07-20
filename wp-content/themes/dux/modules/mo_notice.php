@@ -10,12 +10,12 @@ if( is_home() && (_hui('site_notice_s')||_hui('user_on_notice_s')) ) {
 ?>
 	<div class="widget widget-tops">
 		<ul class="widget-nav">
-			<?php if( $s_notice ){ ?><li<?php echo ($s_notice) ? ' class="active"' : '' ?>><?php echo _hui('site_notice_title') ? _hui('site_notice_title') : '网站公告' ?></li><?php } ?>
-			<?php if( $s_user ){ ?><li<?php echo ($s_user && !$s_notice ) ? ' class="active"' : '' ?>>会员中心</li><?php } ?>
+			<?php if( $s_notice ){ ?><li<?php echo ($s_notice && !$s_user) ? ' class="active"' : '' ?>><?php echo _hui('site_notice_title') ? _hui('site_notice_title') : '网站公告' ?></li><?php } ?>
+			<?php if( $s_user ){ ?><li<?php echo ($s_user) ? ' class="active"' : '' ?>>会员中心</li><?php } ?>
 		</ul>
 		<ul class="widget-navcontent">
 			<?php if( $s_notice && _hui('site_notice_cat') ){ ?>
-				<li class="item item-01<?php echo ($s_notice) ? ' active' : '' ?>">
+				<li class="item item-01<?php echo ($s_notice && !$s_user) ? ' active' : '' ?>">
 					<ul>
 						<?php  
 							$args = array(
@@ -33,7 +33,7 @@ if( is_home() && (_hui('site_notice_s')||_hui('user_on_notice_s')) ) {
 				</li>
 			<?php } ?>
 			<?php if( $s_user ){ ?>
-				<li class="item item-02<?php echo ($s_user && !$s_notice) ? ' active' : '' ?>">
+				<li class="item item-02<?php echo ($s_user) ? ' active' : '' ?>">
 					<?php 
 					if( is_user_logged_in() ){
 						global $current_user; 
