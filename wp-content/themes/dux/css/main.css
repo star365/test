@@ -1275,7 +1275,7 @@ filter:alpha(opacity=85);}
 	background-color:#e7ebef;
 	width:400px;
 	position: absolute;
-	height: 360px;
+	height: 460px;
 	top:0;
 	left:0;
 	right:0;
@@ -1766,6 +1766,7 @@ pre.prettyprint.linenums ol li {
     .m-navbar li.current-menu-item > a, .m-navbar li.current-menu-parent > a{color: #fff;font-weight: bold;}
     .m-navbar li.menu-item-has-children .faa{content:'';position: absolute;right: 15px;top: 0;font-size: 22px;margin: 0;padding: 11px 15px;z-index: 2;cursor: pointer;display: block;width: auto;}
     .m-navbar .navto-search{display: none;}
+    .m-navbar .avatar{border-radius: 50%;}
 
 	/*body{-webkit-transition-duration:500ms;}*/
 
