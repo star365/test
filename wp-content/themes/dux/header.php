@@ -51,13 +51,15 @@
 			</ul>
 			<?php if( is_user_logged_in() ): global $current_user; ?>
 				<?php _moloader('mo_get_user_page', false) ?>
-				Hi, <?php echo $current_user->display_name ?>
+				<?php $color = _hui('theme_skin') ? _hui('theme_skin') : _hui('theme_skin_custom'); ?>
+				<span style="color: <?php echo '#'.$color; ?>; font-weight: bold;">Hi, <?php echo $current_user->display_name ?></span>
 				<?php if( _hui('user_page_s') ){ ?>
 					&nbsp; &nbsp; <a href="<?php echo mo_get_user_page() ?>">进入会员中心</a>
 				<?php } ?>
 				<?php if( is_super_admin() ){ ?>
 					&nbsp; &nbsp; <a target="_blank" href="<?php echo site_url('/wp-admin/') ?>">后台管理</a>
 				<?php } ?>
+					&nbsp; &nbsp; <a href="<?php echo wp_logout_url(home_url()) ?>">退出</a>
 			<?php elseif( _hui('user_page_s') ): ?>
 				<?php _moloader('mo_get_user_rp', false) ?>
 				<a href="javascript:;" class="signin-loader">Hi, 请登录</a>
